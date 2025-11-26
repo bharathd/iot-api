@@ -8,6 +8,7 @@ import CorsMiddlewareConfig from "./middleware/cors";
 import SwaggerMiddlewareConfig from "./middleware/swagger";
 import ErrorsMiddlewar from "./middleware/errors";
 import { authMiddleware } from "./middleware/auth";
+import authRouter from "./routes/auth.router";
 
 const PORT = process.env.PORT || 8000;
 const app: Application = express();
@@ -26,6 +27,7 @@ app.route("/api/health-check").get(async (req, res) => {
   }
 });
 
+app.use("/api/auth", authRouter)
 app.use("/api", authMiddleware, mainRouter)
 
 //Call Error Middleware
