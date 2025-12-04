@@ -4,6 +4,8 @@ const allowCrossDomain = (req: Request, res: Response, next: NextFunction) => {
     const allowedOrigins = [
         'localhost:4200',
         'localhost:8000',
+        'https://iot-ui.azurewebsites.net',  // Prod UI
+        'iot-api.azurewebsites.net', // Prod API  
     ];
     const origin: string = req.headers.origin!;
     const host: string = req.headers.host!;

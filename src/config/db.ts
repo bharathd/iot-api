@@ -1,7 +1,11 @@
 import { DataSource } from "typeorm";
 import { TestData } from "../models/entities/testData";
-// import User from "../models/entities/user";
 import config from './env';
+import User from "../models/entities/user";
+import UserRole from "../models/entities/role";
+import Organization, { OrganizationConfig } from "../models/entities/organization";
+import Customer from "../models/entities/customer";
+import BrowsingLog from "../models/entities/browsing-log";
 
 const dbConfig: DataSource = new DataSource({
     type: 'mysql',
@@ -13,6 +17,12 @@ const dbConfig: DataSource = new DataSource({
     timezone: '+05:30',
     entities: [
         TestData,
+        User,
+        UserRole,
+        Organization,
+        OrganizationConfig,
+        Customer,
+        BrowsingLog
     ],
     logging: false
 });
