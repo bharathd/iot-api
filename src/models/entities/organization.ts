@@ -3,6 +3,8 @@ import {
   Entity,
   JoinColumn,
   OneToMany,
+  OneToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import User from './user';
@@ -30,9 +32,6 @@ export default class Organization {
   @Column({ name: 'address' })
   address!: string;
 
-  @Column({ name: 'organization_logo' })
-  organizationLogo!: string;
-
   @Column({ name: 'description' })
   description!: string;
 
@@ -45,4 +44,35 @@ export default class Organization {
   @OneToMany(() => User, user => user.organizationId)
   @JoinColumn({ name: 'organization_id', referencedColumnName: 'organizationId' })
   users!: User[];
+
+  @OneToOne(() => OrganizationConfig, config => config.organizationId)
+  @JoinColumn({ name: 'organization_id', referencedColumnName: 'organizationId' })
+  config!: OrganizationConfig;
+}
+
+@Entity('organization_config')
+export class OrganizationConfig {
+  @PrimaryColumn({ name: 'organization_id' })
+  organizationId!: string;
+
+  @Column({ name: 'logo' })
+  logo!: string;
+
+  @Column({ name: 'background_image' })
+  backgroundImage!: string;
+
+  @Column({ name: 'primary_color' })
+  primaryColor!: string;
+
+  @Column({ name: 'secondary_color' })
+  secondaryColor!: string;
+
+  @Column({ name: 'welcome_title' })
+  welcomeTitle!: string;
+
+  @Column({ name: 'welcome_captions' })
+  welcomeCaptions!: string;
+
+  @Column({ name: 'website_url' })
+  websiteUrl!: string;
 }

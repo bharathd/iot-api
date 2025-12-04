@@ -38,9 +38,8 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
 
 export const adminAuthMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const user: User = res.locals.user;
-  // if (user.role.roleName !== 'Admin') {
-  //   return res.status(401).json({ message: 'Admin authorization required' });
-  // }
-  return res.status(401).json({ message: 'Not Implemented' });
+  if (user.role.name !== 'Admin') {
+    return res.status(401).json({ message: 'Admin authorization required' });
+  }
   next();
 }
