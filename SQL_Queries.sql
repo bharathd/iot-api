@@ -1,6 +1,6 @@
 -- Create Database
-CREATE DATABASE IF NOT EXISTS ims_local_db;
-USE ims_local_db;
+CREATE DATABASE IF NOT EXISTS iot_local_db;
+USE iot_local_db;
 
 -- Organizations Table
 CREATE TABLE IF NOT EXISTS organizations (
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS organizations (
     is_active BOOLEAN DEFAULT TRUE,
     created_date INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE organization_config (
@@ -29,7 +29,7 @@ CREATE TABLE organization_config (
     website_url VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (organizationId) REFERENCES organizations(organization_id)
+    FOREIGN KEY (organization_id) REFERENCES organizations(organization_id)
 );
 
 -- User Roles Table
@@ -38,9 +38,9 @@ CREATE TABLE IF NOT EXISTS roles (
     role_name VARCHAR(50) NOT NULL,
 	  is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-INSERT INTO user_roles (`role_name`) VALUES ('System Admin'), ('Admin');
+INSERT INTO roles (`role_name`) VALUES ('System Admin'), ('Admin');
 
 
 -- Users Table
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (organization_id) REFERENCES organizations(organization_id),
-    FOREIGN KEY (role_id) REFERENCES user_roles(role_id)
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
 
 -- Customers Table

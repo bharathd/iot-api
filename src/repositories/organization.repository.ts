@@ -14,7 +14,7 @@ export default class OrganizationRepository {
   }
 
   public async getOrganizationById(organizationId: string): Promise<Organization> {
-    const organization = await this.organizationRepo.findOneBy({ organizationId });
+    const organization = await this.organizationRepo.findOne({ where: { organizationId }, relations: { config: true } });
     if (!organization) {
       throw new Error("Organization not found");
     }

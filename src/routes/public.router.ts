@@ -6,6 +6,18 @@ import PublicController from "../controllers/public.controller";
 const publicRouter = express.Router();
 const publicController = Container.get(PublicController)
 
+publicRouter.get("/organization/:organizationId",
+  async (req, res, next) => {
+    try {
+      const { organizationId } = req.params;
+      const results = await publicController.getOrganizationById(organizationId);
+      res.send(results).status(200);
+    } catch (e: any) {
+      console.error(e?.message);
+      next(new ApiError("Public.getOrganizationById", e?.message));
+    }
+  });
+
 publicRouter.get("/organization-config/:organizationId",
   async (req, res, next) => {
     try {

@@ -5,10 +5,10 @@ import User from "./user";
 @Entity("roles")
 export default class UserRole {
   @PrimaryColumn({ name: 'role_id'})
-  id!: number;
+  roleId!: number;
 
   @Column({ name: 'role_name' })
-  name!: string;
+  roleName!: string;
 
   @Column({ name: 'is_active' })
   isActive!: boolean;
