@@ -10,6 +10,7 @@ import ErrorsMiddlewar from "./middleware/errors";
 import { authMiddleware } from "./middleware/auth";
 import authRouter from "./routes/auth.router";
 import fasRouter from "./routes/fas.router";
+import publicRouter from "./routes/public.router";
 
 const PORT = process.env.PORT || 8000;
 const app: Application = express();
@@ -28,6 +29,7 @@ app.route("/api/health-check").get(async (req, res) => {
   }
 });
 
+app.use("/api/public", publicRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/fas", fasRouter)
 app.use("/api", authMiddleware, mainRouter)

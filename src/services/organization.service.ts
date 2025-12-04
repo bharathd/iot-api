@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import OrganizationRepository from "../repositories/organization.repository";
-import Organization from "../models/entities/organization";
+import Organization, { OrganizationConfig } from "../models/entities/organization";
 import { CreateOrganizationObj } from "../models/interface/organization";
 import UserRepository from "../repositories/user.repository";
 import dbConfig from "../config/db";
@@ -70,5 +70,16 @@ export default class OrganizationService {
 
   public updateOrganization(organizationId: string, organization: Partial<Organization>): Promise<boolean> {
     return this.organizationRepository.updateOrganization(organizationId, organization);
+  }
+
+  public async updateOrganizationConfig(organizationId: string, organizationConfig: Partial<OrganizationConfig>): Promise<boolean> {
+    const existingConfig = await this.organizationRepository.getOrganizationConfigById(organizationId);
+    Object.assign(existingConfig, organizationConfig);
+    await this.organizationRepository.saveOrganizationConfig(existingConfig);
+    return true;
+  }
+
+  public async getOrganizationConfigById(organizationId: string): Promise<OrganizationConfig> {
+    return this.organizationRepository.getOrganizationConfigById(organizationId);
   }
 }
