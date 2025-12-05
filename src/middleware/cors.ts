@@ -2,7 +2,7 @@ import { Application, NextFunction, Request, Response } from 'express';
 
 const allowCrossDomain = (req: Request, res: Response, next: NextFunction) => {
     const allowedOrigins = [
-        'localhost:4200',
+        'http://localhost:4200',
         'localhost:8000',
         'https://iot-ui.azurewebsites.net',  // Prod UI
         'iot-api.azurewebsites.net', // Prod API  

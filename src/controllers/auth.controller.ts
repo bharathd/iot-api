@@ -5,6 +5,7 @@ import { LoginUserObj } from "../models/interface/user";
 import { CreateOrganizationObj } from "../models/interface/organization";
 import OrganizationService from "../services/organization.service";
 import User from "../models/entities/user";
+import Organization from "../models/entities/organization";
 
 
 @Route("api/auth")
@@ -17,7 +18,7 @@ export default class AuthController {
     ){}
 
     @Post("/register")
-    public createOrganization(@Body() organizationObj: CreateOrganizationObj): Promise<boolean> {
+    public createOrganization(@Body() organizationObj: CreateOrganizationObj): Promise<Organization> {
         return this.organizationService.createOrganization(organizationObj);
     }
 

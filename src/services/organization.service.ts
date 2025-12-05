@@ -24,7 +24,7 @@ export default class OrganizationService {
 
   public async createOrganization(
     organizationObj: CreateOrganizationObj,
-  ): Promise<boolean> {
+  ): Promise<Organization> {
     const {
       organizationType, organizationName, contactPerson, contactNumber,
       email, gstNumber, address, password, image, termsAndConditions, description
@@ -48,18 +48,18 @@ export default class OrganizationService {
     await queryTransaction.connect();
     await queryTransaction.startTransaction();
     try {
-      const { organizationId } = await this.organizationRepository.createOrganization(organization, queryTransaction);
+      const createdOrganization = await this.organizationRepository.createOrganization(organization, queryTransaction);
 
       // Create admin user
       const user = new User();
       Object.assign(user, {
         roleId: Role.Admin, fullName: contactPerson, contactNumber,
-        email, password, organizationId,
+        email, password, organizationId: createdOrganization.organizationId,
       });
 
       await this.userRepository.createUser(user, queryTransaction);
       await queryTransaction.commitTransaction();
-      return true;
+      return createdOrganization;
     } catch (error) {
       await queryTransaction.rollbackTransaction();
       throw error;
