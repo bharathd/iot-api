@@ -13,8 +13,8 @@ authRouter.post("/register",
   Validation.run(OrganizationSchema.create(), "body"),
   async (req, res, next) => {
     try {
-      const success = await authController.createOrganization(req.body);
-      res.status(201).json({ success });
+      const organization = await authController.createOrganization(req.body);
+      res.status(201).json(organization);
     } catch (e: any) {
       console.error(e?.message);
       next(new ApiError("Auth.createOrganization", e?.message));
