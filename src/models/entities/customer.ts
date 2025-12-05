@@ -14,7 +14,7 @@ export default class Customer {
   customerName!: string;
 
   @Column({ name: 'mobile_number' })
-  mobileNumber!: number;
+  mobileNumber!: string;
 
   @Column({ name: 'hid' })
   hid!: string;

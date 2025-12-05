@@ -7,7 +7,7 @@ export class FasSchema {
   public static customerAuthInit(): Joi.Schema {
     return Joi.object().keys({
       customerName: Joi.string().required(),
-      mobileNumber: Joi.number().required(),
+      mobileNumber: Joi.string().required(),
       fasToken: Joi.string().required(),
       organizationId: Joi.string().required(),
     }).unknown(false);

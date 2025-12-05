@@ -1,6 +1,6 @@
 export interface CustomerAuthObj {
   customerName: string;
-  mobileNumber: number;
+  mobileNumber: string;
   fasToken: string;
   organizationId: string;
 }
