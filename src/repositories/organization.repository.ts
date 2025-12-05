@@ -23,7 +23,7 @@ export default class OrganizationRepository {
 
   public async createOrganization(organization: Organization, queryRunner: QueryRunner): Promise<Organization> {
     const createdOrganization = await queryRunner.manager.save(Organization, organization);
-    await this.saveOrganizationConfig({ organizationId: createdOrganization.organizationId } as OrganizationConfig);
+    await queryRunner.manager.save(OrganizationConfig, { organizationId: createdOrganization.organizationId });
     return createdOrganization;
   }
 
